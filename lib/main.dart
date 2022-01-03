@@ -1,62 +1,57 @@
-// Copyright 2018 The Flutter team. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MaterialApp(
-    title: 'My App',
-    home: SafeArea(child: MyScaffold()),
-  ));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({required this.title, Key? key}) : super(key: key);
-  final Widget title;
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 56.0,
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      decoration: BoxDecoration(color: Colors.red),
-      child: Row(
-        children: [
-          const IconButton(
-            onPressed: null,
-            icon: Icon(Icons.menu),
-            tooltip: 'Navigation Menu',
-          ),
-          Expanded(child: title),
-          const IconButton(
-            onPressed: null,
-            icon: Icon(Icons.search),
-            tooltip: 'Search',
-          )
-        ],
+    return MaterialApp(
+      title: 'Flutter layout demo',
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Flutter layout demo'),
+        ),
+        // Change to buildColumn() for the other column example
+        body: Center(child: ratings),
       ),
     );
   }
 }
 
-class MyScaffold extends StatelessWidget {
-  const MyScaffold({Key? key}) : super(key: key);
+// #docregion Row
+var stars = Row(
+  mainAxisSize: MainAxisSize.min,
+  children: [
+    Icon(Icons.star, color: Colors.green[500]),
+    Icon(Icons.star, color: Colors.green[500]),
+    Icon(Icons.star, color: Colors.green[500]),
+    const Icon(Icons.star, color: Colors.black),
+    const Icon(Icons.star, color: Colors.black),
+  ],
+);
+// #enddocregion Row
 
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      child: Column(
-        children: [
-          MyApp(
-            title: Text('Example Title',
-                style: Theme.of(context).primaryTextTheme.headline6),
-          ),
-          const Expanded(
-              child: Center(
-            child: Text('Hello World!'),
-          ))
-        ],
+final ratings = Container(
+  padding: const EdgeInsets.all(20),
+  color: Colors.blue,
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: [
+      stars,
+      const Text(
+        '170 Reviews',
+        style: TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.w800,
+          fontFamily: 'Roboto',
+          letterSpacing: 0.5,
+          fontSize: 20,
+        ),
       ),
-    );
-  }
-}
+    ],
+  ),
+);
